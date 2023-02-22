@@ -6,13 +6,21 @@ public class Player : MonoBehaviour
 {
     public float speed;
     public float walkSpeed;
+    public float jumpPower;
+
     float hAxis;
     float vAxis;
     bool wDown;
+    bool jDown;
+
     Vector3 moveVec;
+    bool isJump;
+
     Animator anim;
+    Rigidbody rigid;
     private void Awake() {
         anim = GetComponentInChildren<Animator>();
+        rigid = GetComponent<Rigidbody>();
     }
     void Start()
     {
@@ -26,16 +34,19 @@ public class Player : MonoBehaviour
         Move();
         //Player Turn
         Turn();
+        //Player Jump
+        Jump();
     }
-    
+
     ///<summary>
-    /// hAxis, vAxis, wDown
+    /// hAxis, vAxis, wDown, jDonw
     ///을 입력받는함수
     ///</summary>
     void GetInput(){
         hAxis = Input.GetAxisRaw("Horizontal");
         vAxis = Input.GetAxisRaw("Vertical");
         wDown = Input.GetButton("Walk");
+        jDown = Input.GetButtonDown("Jump");
     }
     
     ///<summary>
@@ -56,5 +67,26 @@ public class Player : MonoBehaviour
         transform.position += moveVec * speed * (wDown?walkSpeed:1f) * Time.deltaTime;
         //Player Rotation
         transform.LookAt(transform.position + moveVec);
+    }
+    
+    ///<summary>
+    ///AddForce로 점프
+    ///</summary>
+    /// <param name="인자이름"></param>
+    void Jump(){
+        if(jDown&&!isJump){
+            rigid.AddForce(Vector3.up*jumpPower,ForceMode.Impulse);
+            isJump = true;
+        }
+    }
+
+    ///<summary>
+    /// 1. isJump확인
+    /// 
+    ///</summary>
+    void OnCollisionEnter(Collision other) {
+        if(other.gameObject.CompareTag("Floor")){
+            isJump = false;
+        }
     }
 }
