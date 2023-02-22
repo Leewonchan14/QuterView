@@ -76,6 +76,8 @@ public class Player : MonoBehaviour
     void Jump(){
         if(jDown&&!isJump){
             rigid.AddForce(Vector3.up*jumpPower,ForceMode.Impulse);
+            anim.SetBool("isJump",true);
+            anim.SetTrigger("doJump");
             isJump = true;
         }
     }
@@ -86,6 +88,7 @@ public class Player : MonoBehaviour
     ///</summary>
     void OnCollisionEnter(Collision other) {
         if(other.gameObject.CompareTag("Floor")){
+            anim.SetBool("isJump",false);
             isJump = false;
         }
     }
