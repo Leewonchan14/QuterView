@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
         moveVec = new Vector3(hAxis,0,vAxis).normalized;
         transform.position += moveVec * speed * (wDown?walkSpeed:1f) * Time.deltaTime;
 
+        //Player Rotation
         transform.LookAt(transform.position + moveVec);
 
         anim.SetBool("isRun",moveVec != Vector3.zero);
