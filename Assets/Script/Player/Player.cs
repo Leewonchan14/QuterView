@@ -20,19 +20,41 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        //input Vector
+        //KeyBord Input
+        GetInput();
+        //Player Move
+        Move();
+        //Player Turn
+        Turn();
+    }
+    
+    ///<summary>
+    /// hAxis, vAxis, wDown
+    ///을 입력받는함수
+    ///</summary>
+    void GetInput(){
         hAxis = Input.GetAxisRaw("Horizontal");
         vAxis = Input.GetAxisRaw("Vertical");
         wDown = Input.GetButton("Walk");
-
-        //Player Move
+    }
+    
+    ///<summary>
+    ///플레이어 이동, 회전, 애니메이션 인자 수정
+    ///</summary>
+    /// <param name="인자이름"></param>
+    void Move(){
         moveVec = new Vector3(hAxis,0,vAxis).normalized;
-        transform.position += moveVec * speed * (wDown?walkSpeed:1f) * Time.deltaTime;
-
-        //Player Rotation
-        transform.LookAt(transform.position + moveVec);
 
         anim.SetBool("isRun",moveVec != Vector3.zero);
         anim.SetBool("isWalk",wDown);
+    }
+    
+    ///<summary>
+    ///Player Turn
+    ///</summary>
+    void Turn(){
+        transform.position += moveVec * speed * (wDown?walkSpeed:1f) * Time.deltaTime;
+        //Player Rotation
+        transform.LookAt(transform.position + moveVec);
     }
 }
