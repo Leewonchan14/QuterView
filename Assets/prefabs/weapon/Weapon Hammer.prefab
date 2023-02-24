@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 7881769420957211268}
   - component: {fileID: 8403671558914489415}
   - component: {fileID: 8403671558914489413}
-  - component: {fileID: 8403671558914489410}
   - component: {fileID: 8403671558914489412}
+  - component: {fileID: 1873072231542702739}
   m_Layer: 0
   m_Name: Weapon Hammer
   m_TagString: Weapon
@@ -110,7 +110,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7361831969581203518}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -135,7 +135,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 10
   m_CollisionDetection: 0
 --- !u!135 &8403671558914489413
 SphereCollider:
@@ -149,19 +149,6 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 3
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!135 &8403671558914489410
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7361831969581203518}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &8403671558914489412
 MonoBehaviour:
@@ -178,6 +165,19 @@ MonoBehaviour:
   rotateSpeed: 60
   myType: 4
   value: 0
+--- !u!65 &1873072231542702739
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7361831969581203518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8403671559406044092
 GameObject:
   m_ObjectHideFlags: 0

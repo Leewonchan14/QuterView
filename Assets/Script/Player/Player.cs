@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
   float vAxis;
   bool wDown;
   bool jDown;
+  bool iDown;
 
   Vector3 moveVec;
   Vector3 dodgeVec;
@@ -20,6 +21,9 @@ public class Player : MonoBehaviour
 
   Animator anim;
   Rigidbody rigid;
+  GameObject nearObject;
+  public GameObject[] weapons;
+  public bool[] hasWeapon;
   private void Awake()
   {
     anim = GetComponentInChildren<Animator>();
@@ -41,6 +45,8 @@ public class Player : MonoBehaviour
     Jump();
     //Player Dodge
     Dodge();
+    //Player InterAction
+    Interaction();
   }
 
   ///<summary>
@@ -53,6 +59,7 @@ public class Player : MonoBehaviour
     vAxis = Input.GetAxisRaw("Vertical");
     wDown = Input.GetButton("Walk");
     jDown = Input.GetButtonDown("Jump");
+    iDown = Input.GetButtonDown("Interaction");
   }
 
   ///<summary>
@@ -119,7 +126,25 @@ public class Player : MonoBehaviour
     speed /= 2;
     isDodge = false;
   }
+  ///<summary>
+  ///무기 입수 함수
+  ///</summary>
+  void Interaction()
+  {
+    //근처에 아이템이 있고, 점프나 회피중이 아닐때
+    if (iDown && nearObject != null && !isJump && !isDodge)
+    {
+      //무기라면
+      if (nearObject.tag == "Weapon")
+      {
+        Item item = nearObject.GetComponent<Item>();
+        int weaponIndex = item.value;
+        hasWeapon[weaponIndex] = true;
 
+        Destroy(nearObject);
+      }
+    }
+  }
   ///<summary>
   /// 1. isJump확인
   /// 
@@ -131,6 +156,22 @@ public class Player : MonoBehaviour
     {
       anim.SetBool("isJump", false);
       isJump = false;
+    }
+  }
+  void OnTriggerStay(Collider other)
+  {
+    //웨폰을 만났다면
+    if (other.CompareTag("Weapon"))
+    {
+      nearObject = other.gameObject;
+      Debug.Log(nearObject.name);
+    }
+  }
+  void OnTriggerExit(Collider other)
+  {
+    if (other.CompareTag("Weapon"))
+    {
+      nearObject = null;
     }
   }
 }

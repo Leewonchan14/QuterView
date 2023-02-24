@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class item : MonoBehaviour
+public class Item : MonoBehaviour
 {
   public float rotateSpeed;
   public enum itemType { Ammo, Coin, Grenade, Heart, Weapon };

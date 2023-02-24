@@ -4917,8 +4917,8 @@ GameObject:
   - component: {fileID: 1730312229737817492}
   - component: {fileID: 143324138629528717}
   - component: {fileID: 143324138629528714}
-  - component: {fileID: 143324138629528715}
   - component: {fileID: 143324138629528716}
+  - component: {fileID: 541502687}
   m_Layer: 0
   m_Name: Weapon Grenade
   m_TagString: Item
@@ -4933,7 +4933,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389533532341747502}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4973,19 +4973,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3
   m_Center: {x: 0, y: 1, z: 0}
---- !u!135 &143324138629528715
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1389533532341747502}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &143324138629528716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5001,6 +4988,19 @@ MonoBehaviour:
   rotateSpeed: 60
   myType: 2
   value: 1
+--- !u!65 &541502687
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389533532341747502}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7812922416756596097
 GameObject:
   m_ObjectHideFlags: 0
