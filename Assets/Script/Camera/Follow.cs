@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Follow : MonoBehaviour
 {
-    public Transform target;
-    public Vector3 offset;
-    void Update()
-    {
-        transform.position = target.transform.position + offset;
-    }
+  public Transform target;
+  public Vector3 offset;
+  void Update()
+  {
+    transform.position = target.transform.position + offset;
+  }
 }
