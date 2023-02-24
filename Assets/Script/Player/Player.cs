@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     bool jDown;
 
     Vector3 moveVec;
+    Vector3 dodgeVec;
     bool isJump;
+    bool isDodge;
 
     Animator anim;
     Rigidbody rigid;
@@ -36,6 +38,8 @@ public class Player : MonoBehaviour
         Turn();
         //Player Jump
         Jump();
+        //Player Dodge
+        Dodge();
     }
 
     ///<summary>
@@ -55,6 +59,7 @@ public class Player : MonoBehaviour
     /// <param name="인자이름"></param>
     void Move(){
         moveVec = new Vector3(hAxis,0,vAxis).normalized;
+        if(isDodge) moveVec = dodgeVec;
 
         anim.SetBool("isRun",moveVec != Vector3.zero);
         anim.SetBool("isWalk",wDown);
@@ -74,8 +79,8 @@ public class Player : MonoBehaviour
     ///</summary>
     /// <param name="인자이름"></param>
     void Jump(){
-        //점프키를 누르고 점프상태가 아니라면
-        if(jDown&&!isJump){
+        //점프키를 누르고 점프상태가 아니고, 가만히있고, 회피상태가 아닐때
+        if(jDown&&!isJump&&moveVec == Vector3.zero&&!isDodge){
             //점프
             rigid.AddForce(Vector3.up*jumpPower,ForceMode.Impulse);
             //애니메이션 설정
@@ -85,12 +90,33 @@ public class Player : MonoBehaviour
             isJump = true;
         }
     }
+    ///<summary>
+    ///회피 함수
+    ///</summary>
+    void Dodge(){
+        //점프키를 누르고 점프상태가 아니고, 방향키를 누르고, 회피상태가 아니고
+        if(jDown&&!isJump&&moveVec != Vector3.zero&&!isDodge){
+            dodgeVec = moveVec;
+            speed *= 2;
+            anim.SetTrigger("doDodge");
+            isDodge = true;
+            Invoke("DodgeOut",0.5f);
+        }
+    }
+    ///<summary>
+    ///회피를 빠져나가는 함수
+    ///</summary>
+    void DodgeOut(){
+        speed /= 2;
+        isDodge = false;
+    }
 
     ///<summary>
     /// 1. isJump확인
     /// 
     ///</summary>
     void OnCollisionEnter(Collision other) {
+        //바닥에 닿으면 점프 끝
         if(other.gameObject.CompareTag("Floor")){
             anim.SetBool("isJump",false);
             isJump = false;
