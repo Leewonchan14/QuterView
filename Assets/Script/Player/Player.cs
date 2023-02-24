@@ -162,6 +162,10 @@ public class Player : MonoBehaviour
   ///</summary>
   void Swap()
   {
+    if (sDown1 && (!hasWeapon[0] || equipWeapon == weapons[0])) return;
+    if (sDown2 && (!hasWeapon[1] || equipWeapon == weapons[1])) return;
+    if (sDown3 && (!hasWeapon[2] || equipWeapon == weapons[2])) return;
+
     int weaponIndex = -1;
     if (sDown1) weaponIndex = 0;
     if (sDown2) weaponIndex = 1;
