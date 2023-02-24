@@ -74,10 +74,14 @@ public class Player : MonoBehaviour
     ///</summary>
     /// <param name="인자이름"></param>
     void Jump(){
+        //점프키를 누르고 점프상태가 아니라면
         if(jDown&&!isJump){
+            //점프
             rigid.AddForce(Vector3.up*jumpPower,ForceMode.Impulse);
+            //애니메이션 설정
             anim.SetBool("isJump",true);
             anim.SetTrigger("doJump");
+            //점프상태로 변경
             isJump = true;
         }
     }
