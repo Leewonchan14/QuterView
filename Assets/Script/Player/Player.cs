@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
   Vector3 dodgeVec;
   bool isJump;
   bool isDodge;
-
+  bool isSwap;
   Animator anim;
   Rigidbody rigid;
   GameObject nearObject;
@@ -77,7 +77,11 @@ public class Player : MonoBehaviour
   void Move()
   {
     moveVec = new Vector3(hAxis, 0, vAxis).normalized;
+    //회피중 움직임 제어
     if (isDodge) moveVec = dodgeVec;
+
+    //무기교체중 움직임 제어
+    if (isSwap) moveVec = Vector3.zero;
 
     anim.SetBool("isRun", moveVec != Vector3.zero);
     anim.SetBool("isWalk", wDown);
@@ -100,7 +104,7 @@ public class Player : MonoBehaviour
   void Jump()
   {
     //점프키를 누르고 점프상태가 아니고, 가만히있고, 회피상태가 아닐때
-    if (jDown && !isJump && moveVec == Vector3.zero && !isDodge)
+    if (jDown && !isJump && moveVec == Vector3.zero && !isDodge && !isSwap)
     {
       //점프
       rigid.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
@@ -117,7 +121,7 @@ public class Player : MonoBehaviour
   void Dodge()
   {
     //점프키를 누르고 점프상태가 아니고, 방향키를 누르고, 회피상태가 아니고
-    if (jDown && !isJump && moveVec != Vector3.zero && !isDodge)
+    if (jDown && !isJump && moveVec != Vector3.zero && !isDodge && !isSwap)
     {
       dodgeVec = moveVec;
       speed *= 2;
@@ -165,10 +169,22 @@ public class Player : MonoBehaviour
     //스왑하거나, 점프,회피상태가 아닐때
     if ((sDown1 || sDown2 || sDown3) && !isJump && !isDodge)
     {
-      if(equipWeapon!=null) equipWeapon.SetActive(false);
+      if (equipWeapon != null) equipWeapon.SetActive(false);
       weapons[weaponIndex].SetActive(true);
       equipWeapon = weapons[weaponIndex];
+
+      isSwap = true;
+      anim.SetTrigger("doSwap");
+      CancelInvoke("SwapOut");
+      Invoke("SwapOut", 0.4f);
     }
+  }
+  ///<summary>
+  ///무기교체가 끝나는 함수
+  ///</summary>
+  void SwapOut()
+  {
+    isSwap = false;
   }
   ///<summary>
   /// 1. isJump확인
