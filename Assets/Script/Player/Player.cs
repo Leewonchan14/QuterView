@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+  public GameObject[] weapons;
+  public bool[] hasWeapon;
   public float speed;
   public float walkSpeed;
   public float jumpPower;
@@ -25,8 +27,7 @@ public class Player : MonoBehaviour
   Animator anim;
   Rigidbody rigid;
   GameObject nearObject;
-  public GameObject[] weapons;
-  public bool[] hasWeapon;
+  GameObject equipWeapon;
   private void Awake()
   {
     anim = GetComponentInChildren<Animator>();
@@ -50,11 +51,12 @@ public class Player : MonoBehaviour
     Dodge();
     //Player InterAction
     Interaction();
+    //Player Swap
+    Swap();
   }
 
   ///<summary>
-  /// hAxis, vAxis, wDown, jDonw
-  ///을 입력받는함수
+  ///입력받는함수
   ///</summary>
   void GetInput()
   {
@@ -149,6 +151,23 @@ public class Player : MonoBehaviour
 
         Destroy(nearObject);
       }
+    }
+  }
+  ///<summary>
+  ///무기 스왑
+  ///</summary>
+  void Swap()
+  {
+    int weaponIndex = -1;
+    if (sDown1) weaponIndex = 0;
+    if (sDown2) weaponIndex = 1;
+    if (sDown3) weaponIndex = 2;
+    //스왑하거나, 점프,회피상태가 아닐때
+    if ((sDown1 || sDown2 || sDown3) && !isJump && !isDodge)
+    {
+      if(equipWeapon!=null) equipWeapon.SetActive(false);
+      weapons[weaponIndex].SetActive(true);
+      equipWeapon = weapons[weaponIndex];
     }
   }
   ///<summary>
