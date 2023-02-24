@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
   bool wDown;
   bool jDown;
   bool iDown;
+  bool sDown1;
+  bool sDown2;
+  bool sDown3;
 
   Vector3 moveVec;
   Vector3 dodgeVec;
@@ -60,6 +63,9 @@ public class Player : MonoBehaviour
     wDown = Input.GetButton("Walk");
     jDown = Input.GetButtonDown("Jump");
     iDown = Input.GetButtonDown("Interaction");
+    sDown1 = Input.GetButtonDown("Swap1");
+    sDown2 = Input.GetButtonDown("Swap2");
+    sDown3 = Input.GetButtonDown("Swap3");
   }
 
   ///<summary>
